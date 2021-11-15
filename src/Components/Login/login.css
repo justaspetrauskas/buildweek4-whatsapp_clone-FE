@@ -1,5 +1,5 @@
 #container {
-	border: 2px solid black;
+	border: 2px solid white;
 }
 #login {
 	margin-top: 50px;
@@ -9,6 +9,7 @@
 }
 #title {
 	font-family: Georgia, "Times New Roman", Times, serif;
+	color: #fff;
 }
 * {
 	font-family: serif;

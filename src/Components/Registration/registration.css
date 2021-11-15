@@ -1,0 +1,25 @@
+#name {
+	border-radius: 50px;
+}
+#email {
+	border-radius: 50px;
+}
+#password {
+	border-radius: 50px;
+}
+#url {
+	border-radius: 50px;
+}
+#btn {
+	border: solid 1px success;
+	border-radius: 50px;
+}
+#link {
+	color: #fff;
+}
+#link:hover {
+	color: #fff;
+}
+.backg {
+	background-image: url(https://www.wallpapertip.com/wmimgs/51-517054_whatsapp-background-images-hd.jpg);
+}
