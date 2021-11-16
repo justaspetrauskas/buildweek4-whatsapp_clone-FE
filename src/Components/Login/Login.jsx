@@ -41,7 +41,7 @@ const Login = () => {
 
 
                     <Button variant="success" type="submit" className="my-2 btn btn-large w-100" id="btn">
-                        <Link to="/main" className="link">      Log in</Link>
+                        <Link to="/home" className="link">      Log in</Link>
                     </Button>
                     <a href="http://google.com" target="_blank" >
                         <Button variant="light" type="submit" className="my-2 btn btn-large w-100 border" id="btn">
