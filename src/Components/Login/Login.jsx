@@ -12,9 +12,9 @@ const Login = () => {
     return (
 
         <div class="backg py-5">
-            <Container id="container" className="my- py-5">
+            <Container id="container" className="py-5">
                 <Form id="login">
-                    <img src="https://camo.githubusercontent.com/40a80c83c5ce6ff286d0693ebe6b736cdcce8c94b22e3cd1b56ef5904733da8e/68747470733a2f2f6173736574732e737469636b706e672e636f6d2f696d616765732f3538306235376663643939393665323462633433633534332e706e67" width="300" height="300" alt="" />
+                    <img src="https://camo.githubusercontent.com/40a80c83c5ce6ff286d0693ebe6b736cdcce8c94b22e3cd1b56ef5904733da8e/68747470733a2f2f6173736574732e737469636b706e672e636f6d2f696d616765732f3538306235376663643939393665323462633433633534332e706e67" width="300" height="300" alt="" className="mr-auto" />
                     <h3 id="title">Welcome to Whatsapp</h3>
 
 

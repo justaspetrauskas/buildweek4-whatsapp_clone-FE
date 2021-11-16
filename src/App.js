@@ -13,11 +13,13 @@ function App() {
 
         <Route exact path='/' render={() => <Login />} />
         <Route exact path='/register' render={() => <Registration />} />
-        <Route exact path='/home' render={() => <Homepage/>} />
+
+        <Route exact path='/home' render={() => <Homepage />} />
 
       </Router>
-    
     </div>
   )
 }
-export default App;
+
+
+
