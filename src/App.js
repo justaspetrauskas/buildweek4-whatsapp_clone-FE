@@ -1,4 +1,3 @@
-// import './App.css';
 import Login from './Components/Login/Login'
 import { BrowserRouter as Router, Route, HashRouter } from 'react-router-dom'
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -20,3 +19,4 @@ function App() {
   )
 }
 export default App;
+
