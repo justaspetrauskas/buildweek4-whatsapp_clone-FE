@@ -7,14 +7,14 @@ function App() {
   return (
     <div >
 
-      <HashRouter basename='/'>
+      <Router basename='/'>
 
 
         <Route exact path='/' render={() => <Login />} />
         <Route exact path='/register' render={() => <Registration />} />
         <Route exact path='/home' render={() => <Homepage />} />
 
-      </HashRouter>
+      </Router>
     </div>
   )
 }
