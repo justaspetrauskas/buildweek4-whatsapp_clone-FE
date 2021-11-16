@@ -1,6 +1,4 @@
 import { Navbar, Container, Nav, InputGroup, FormControl} from 'react-bootstrap'
-import { HiOutlineDotsVertical} from 'react-icons/hi'
-import {MdOutlineSearch} from 'react-icons/md'
 import './Homepage.css'
 import {GoSmiley} from 'react-icons/go'
 import {BsFillMicFill} from 'react-icons/bs'

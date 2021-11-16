@@ -9,7 +9,7 @@ const Homepage = () => {
 
     return(
         <>
-        <Container className='px-0 mx-0' style={{maxWidth: '1410px'}}>
+        {/* <Container className='px-0 mx-0' style={{maxWidth: '1410px'}}> */}
             <Row>
             <Col className='col-3 px-0' style={{borderRight:'1px solid white'}}>
             
@@ -21,16 +21,16 @@ const Homepage = () => {
             </Col>
             </Row>
             <Row style={{height: '100vh'}}>
-            <Col className='col-3 px-0' style={{borderRight:'1px solid white'}}>
+            <Col className='col-3 px-0' style={{borderRight:'1px solid white', backgroundColor:'black'}}>
                
                 <UsersContainer/>
                
             </Col>
             <Col className='col-9 px-0 back-image'>
-                <MessageBar/>
+                {/* <MessageBar/> */}
             </Col>
             </Row>
-        </Container>
+        {/* </Container> */}
         </>
     )
 }
