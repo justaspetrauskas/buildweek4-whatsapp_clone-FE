@@ -20,6 +20,7 @@ const Homepage = () => {
                     <NavbarRight />
                 </Col>
             </Row>
+
             <Row style={{ height: '100vh' }}>
                 <Col className='col-3 px-0' style={{ borderRight: '1px solid white' }}>
 
@@ -30,6 +31,7 @@ const Homepage = () => {
                     <MessageBar />
                 </Col>
             </Row>
+
 
         </>
     )

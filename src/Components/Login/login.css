@@ -1,22 +1,28 @@
 #container {
-	border: 2px solid white;
+    border: 2px solid white;
 }
+
 #login {
+
 	margin-top: 50px;
 	justify-content: center;
+
 }
+
 .link {
-	color: #fff;
+    color: #fff;
 }
+
 #title {
-	font-family: Georgia, "Times New Roman", Times, serif;
-	color: #fff;
+    font-family: Georgia, "Times New Roman", Times, serif;
+    color: #fff;
 }
+
 * {
-	font-family: serif;
-	font-size: 18px;
+    font-family: serif;
+    font-size: 18px;
 }
 
 .link:hover {
-	color: #fff;
+    color: #fff;
 }
