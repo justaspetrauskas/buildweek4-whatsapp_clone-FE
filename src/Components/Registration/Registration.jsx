@@ -46,22 +46,27 @@ const Registration = (props) => {
         onSubmit: (values) => {
             console.log("inside Submit", values)
             createUser(values, " <<<<<< inside Signupform on submit")
+
         },
     })
 
     const createUser = async (values) => {
+        console.log(values, " from fetch")
         console.log("inside create user")
         try {
             let response = await fetch(
-                "process.env.REACT_APP_API_REGISTER" / "users" / "account",
+                `${process.env.REACT_APP_API_REGISTER + "/" + "account"}`,
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify(values),
+
                 }
+
             )
+
             if (response.ok) {
                 let dataRequested = await response.json()
                 console.log(dataRequested)
@@ -76,16 +81,13 @@ const Registration = (props) => {
     }
 
     const getUserData = async () => {
-        let userToken = "Bearer " + window.localStorage.getItem("user_Token")
-        console.log(userToken)
+
         try {
             let response = await fetch(
-                "process.env.REACT_APP_API_REGISTER/users/me",
+                "process.env.REACT_APP_API_REGISTER",
                 {
                     method: "Get",
-                    headers: {
-                        Authorization: userToken,
-                    },
+
                 }
             )
             let userData = await response.json()
@@ -207,7 +209,7 @@ const Registration = (props) => {
                             id="btn"
                             type="submit"
                             className="btn btn-success my-2 btn-large w-100"
-                            href="/"
+
                         >
                             <Link to="/" id="link"> Register    </Link>
 
