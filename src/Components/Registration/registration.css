@@ -1,0 +1,35 @@
+#name {
+    border-radius: 50px;
+}
+
+#email {
+    border-radius: 50px;
+}
+
+#password {
+    border-radius: 50px;
+}
+
+#url {
+    border-radius: 50px;
+}
+
+#btn {
+    border: solid 1px success;
+    border-radius: 50px;
+}
+
+#link {
+    color: #fff;
+}
+
+#link:hover {
+    color: #fff;
+}
+
+.backg {
+
+	background-image: url(https://img.freepik.com/premium-photo/lot-3d-whatsapp-green-glossy-pills-dark-green-background_284880-35.jpg?size=626&ext=jpg);
+	background-size: contain;
+}
+
