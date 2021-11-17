@@ -4,8 +4,8 @@ import { FaFacebook } from "react-icons/fa"
 import { FcGoogle } from "react-icons/fc"
 import "./login.css"
 import { Link } from "react-router-dom"
-
-
+import { useSelector,useDispatch } from 'react-redux'
+import {setUserData} from '../../redux/actions'
 
 
 
@@ -14,11 +14,19 @@ const Login = (props) => {
     const [loginValidation, setLoginValidation] = useState(false)
     const [isTransitionPage, setTransitionPage] = useState(false)
     const [token, setToken] = useState("")
+
+    const dispatch = useDispatch()
+    const selector = useSelector(s => s.user.userData)
+
+
+
     const handleForm = (key, value) => {
         setLogin({
             ...login,
             [key]: value,
         })
+        
+        //console.log(selector)
     }
 
     const getUserToken = async (e) => {
@@ -61,6 +69,7 @@ const Login = (props) => {
             if (response.ok) {
 
                 let userData = await response.json()
+                dispatch(setUserData(userData))
                 if (userData.email === undefined) {
                     setLoginValidation(true)
                     return
