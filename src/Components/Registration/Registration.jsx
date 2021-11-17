@@ -55,7 +55,7 @@ const Registration = (props) => {
         console.log("inside create user")
         try {
             let response = await fetch(
-                `${process.env.REACT_APP_API_REGISTER}`,
+                `${process.env.REACT_APP_API_REGISTER + "/" + "account"}`,
                 {
                     method: "POST",
                     headers: {
