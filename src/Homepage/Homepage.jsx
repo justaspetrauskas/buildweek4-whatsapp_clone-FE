@@ -22,7 +22,7 @@ const Homepage = () => {
             </Row>
 
             <Row style={{ height: '100vh' }}>
-                <Col className='col-3 px-0' style={{ borderRight: '1px solid white' }}>
+                <Col className='col-3 px-0' style={{ borderRight: '1px solid white', backgroundColor:'black' }}>
 
                     <UsersContainer />
 

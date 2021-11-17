@@ -22,8 +22,8 @@ return(
             <HiUserCircle className='chat-user'/>
         </Col>
         <Col className='col-10' style={{paddingLeft:'4rem'}}>
-        <p className='mb-0 mt-3 text-white'>{user}</p>
-        <p className='mb-0 text-muted'>Recent chat</p>
+        <p className='mb-0 mt-1 text-white'>{user}</p>
+        <p className='mb-1 text-muted'>Recent chat</p>
         </Col>
     </Row>
 )}
