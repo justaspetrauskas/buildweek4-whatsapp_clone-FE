@@ -40,7 +40,7 @@ const Registration = (props) => {
             email: "",
             username: "",
             password: "",
-            image: "",
+            avatar: "",
         },
         validate,
         onSubmit: (values) => {
@@ -49,6 +49,29 @@ const Registration = (props) => {
 
         },
     })
+    const [previewSource, setPreviewSource] = useState();
+    const [file, setFile] = useState()
+    const previewFile = (file) => {
+
+        const reader = new FileReader()
+        reader.readAsDataURL(file)
+        reader.onloadend = () => {
+            setPreviewSource(reader.result)
+        }
+    }
+    const formData = new FormData();
+    const onFileChange = (e) => {
+        console.log(e.target.files[0])
+
+        if (e.target && e.target.files[0]) {
+            formData.append('image', e.target.files[0])
+            setFile(formData)
+            previewFile(e.target.files[0])
+        } else {
+            console.log("image upload not succeded")
+        }
+
+    }
 
     const createUser = async (values) => {
         console.log(values, " from fetch")
@@ -67,6 +90,7 @@ const Registration = (props) => {
 
             )
 
+
             if (response.ok) {
                 let dataRequested = await response.json()
                 console.log(dataRequested)
@@ -75,6 +99,12 @@ const Registration = (props) => {
             } else {
                 alert("User not created")
             }
+
+            const res = await fetch(`${process.env.REACT_APP_API_REGISTER + "/" + "me" + "/" + "avatar"}`, {
+                method: "POST",
+                body: file
+            })
+            console.log("submitted 2")
         } catch (e) {
             return e
         }
@@ -122,7 +152,7 @@ const Registration = (props) => {
 
                         password: "",
 
-                        image: "",
+                        avatar: "",
                     }}
                 >
                     <Form onSubmit={formik.handleSubmit}>
@@ -190,21 +220,18 @@ const Registration = (props) => {
                         <div className="form-group">
                             <label htmlFor="username" id="title">
 
-                                Picture url:
+                                Picture:
                             </label>
 
-                            <Field
-                                id="password"
-                                className="form-control"
-                                name="text"
-                                type="text"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.image}
-                            />
+                            <input id="exampleFormControlFile1"
+                                type="file"
+                                name="avatar"
+                                onChange={onFileChange} />
                         </div>
                         {showAlert && <Alert variant="success"> <Alert.Heading>Account Created Successfully</Alert.Heading></Alert>}
-
+                        {previewSource && (
+                            <img src={previewSource} alt="chosen" height="100px" width="100px" className="ml-auto" />
+                        )}
                         <button
                             id="btn"
                             type="submit"
