@@ -1,256 +1,256 @@
-import { useFormik, Formik, Field, Form } from "formik"
-import { useState } from 'react';
-import { Alert } from 'react-bootstrap';
-import { Container } from "react-bootstrap"
-import { Link } from "react-router-dom"
-import "./registration.css"
+import { useFormik, Formik, Field, Form } from "formik";
+import { useState } from "react";
+import { Alert } from "react-bootstrap";
+import { Container } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import "./registration.css";
 
 const validate = (values) => {
-    const errors = {}
+  const errors = {};
 
+  if (!values.email) {
+    errors.email = "Required";
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = "Invalid email address";
+  }
 
-    if (!values.email) {
-        errors.email = "Required"
-    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
-        errors.email = "Invalid email address"
-    }
+  if (!values.password) {
+    errors.password = "Required";
+  } else if (values.password.length < 8) {
+    errors.password = "Password must have at least 8 characters";
+  }
 
-    if (!values.password) {
-        errors.password = "Required"
-    } else if (values.password.length < 8) {
-        errors.password = "Password must have at least 8 characters"
-    }
+  if (!values.username) {
+    errors.username = "Required";
+    // } else if (values.username.length < ) {
+    //   errors.username = 'Username must have at least 5 characters';
+  }
 
-    if (!values.username) {
-        errors.username = "Required"
-        // } else if (values.username.length < ) {
-        //   errors.username = 'Username must have at least 5 characters';
-    }
-
-
-
-    return errors
-}
+  return errors;
+};
 const Registration = (props) => {
-    const [showAlert, setShowAlert] = useState(false)
-    const formik = useFormik({
-        initialValues: {
+  const [showAlert, setShowAlert] = useState(false);
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      username: "",
+      password: "",
+      avatar: "",
+    },
+    validate,
+    onSubmit: (values) => {
+      console.log("inside Submit", values);
+      createUser(values, " <<<<<< inside Signupform on submit");
+    },
+  });
+  //   const [previewSource, setPreviewSource] = useState();
+  const [file, setFile] = useState();
 
+  //   const previewFile = (file) => {
+  //     const reader = new FileReader();
+  //     reader.readAsDataURL(file);
+  //     reader.onloadend = () => {
+  //       setPreviewSource(reader.result);
+  //     };
+  //   };
 
+  const onFileChange = (e) => {
+    if (e.target.files && e.target.files[0]) {
+      setFile(e.target.files[0]);
+    } else {
+      console.log("there has been some error");
+    }
+  };
+
+  const uploadImage = async (id) => {
+    const profileImg = new FormData();
+    profileImg.append("avatar", file);
+    try {
+      const image = await fetch(
+        `${process.env.REACT_APP_API_REGISTER}/account/${id}/avatar`,
+        {
+          method: "POST",
+          body: profileImg,
+        }
+      );
+      if (image.ok) {
+        console.log("image has been uploaded");
+      }
+    } catch (err) {
+      console.log(err);
+    }
+
+    console.log("submitted 2");
+  };
+
+  const createUser = async (values) => {
+    console.log(values, " from fetch");
+    console.log("inside create user");
+    try {
+      let response = await fetch(
+        `${process.env.REACT_APP_API_REGISTER}/account`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(values),
+        }
+      );
+      if (response.ok) {
+        let dataRequested = await response.json();
+        console.log(dataRequested);
+        const userId = dataRequested._id;
+        window.localStorage.setItem("user_Token", dataRequested.access_token);
+        uploadImage(userId);
+        // getUserData();
+      } else {
+        alert("User not created");
+      }
+    } catch (e) {
+      return e;
+    }
+  };
+
+  const getUserData = async () => {
+    try {
+      let response = await fetch(process.env.REACT_APP_API_REGISTER, {
+        method: "Get",
+      });
+      let userData = await response.json();
+      let userDataKeyList = Object.keys(userData);
+      userDataKeyList.forEach((key) =>
+        window.localStorage.setItem(key, userData[key])
+      );
+      setShowAlert(true);
+      setTimeout(() => {
+        props.history.push("transitionPage");
+      }, 2000);
+    } catch (e) {
+      console.log(e);
+      return e;
+    }
+  };
+
+  return (
+    <div class="backg py-5">
+      <Container id="container" className="col-md-8">
+        <img
+          src="https://camo.githubusercontent.com/40a80c83c5ce6ff286d0693ebe6b736cdcce8c94b22e3cd1b56ef5904733da8e/68747470733a2f2f6173736574732e737469636b706e672e636f6d2f696d616765732f3538306235376663643939393665323462633433633534332e706e67"
+          width="300"
+          height="300"
+          alt=""
+        />
+        <h3 id="title">Join to Whatsapp</h3>
+
+        <Formik
+          initialValues={{
             email: "",
             username: "",
+
             password: "",
+
             avatar: "",
-        },
-        validate,
-        onSubmit: (values) => {
-            console.log("inside Submit", values)
-            createUser(values, " <<<<<< inside Signupform on submit")
+          }}
+        >
+          <Form onSubmit={formik.handleSubmit}>
+            <div className="form-group">
+              <label htmlFor="name" id="title">
+                Username:
+              </label>
+              <Field
+                id="email"
+                className="form-control"
+                name="username"
+                type="username"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.username}
+              />
+              {formik.touched.username && formik.errors.username ? (
+                <div className="fw-bold text-danger">
+                  {formik.errors.username}
+                </div>
+              ) : null}
+            </div>
 
-        },
-    })
-    const [previewSource, setPreviewSource] = useState();
-    const [file, setFile] = useState()
-    const previewFile = (file) => {
+            <div className="form-group">
+              <label htmlFor="email" id="title">
+                {" "}
+                Email Address:
+              </label>
+              <Field
+                id="email"
+                className="form-control"
+                name="email"
+                type="email"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
+              />
+              {formik.touched.email && formik.errors.email ? (
+                <div className="fw-bold text-danger">{formik.errors.email}</div>
+              ) : null}
+            </div>
+            <div className="form-group">
+              <label htmlFor="password" id="title">
+                {" "}
+                Password:
+              </label>
+              <Field
+                id="password"
+                className="form-control"
+                name="password"
+                type="password"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.password}
+              />
+              {formik.touched.password && formik.errors.password ? (
+                <div className="fw-bold text-danger">
+                  {formik.errors.password}
+                </div>
+              ) : null}
+            </div>
 
-        const reader = new FileReader()
-        reader.readAsDataURL(file)
-        reader.onloadend = () => {
-            setPreviewSource(reader.result)
-        }
-    }
-    const formData = new FormData();
-    const onFileChange = (e) => {
-        console.log(e.target.files[0])
+            <div className="form-group">
+              <label htmlFor="username" id="title">
+                Picture:
+              </label>
 
-        if (e.target && e.target.files[0]) {
-            formData.append('image', e.target.files[0])
-            setFile(formData)
-            previewFile(e.target.files[0])
-        } else {
-            console.log("image upload not succeded")
-        }
-
-    }
-
-    const createUser = async (values) => {
-        console.log(values, " from fetch")
-        console.log("inside create user")
-        try {
-            let response = await fetch(
-                `${process.env.REACT_APP_API_REGISTER + "/" + "account"}`,
-                {
-                    method: "POST",
-                    headers: {
-                        "Content-Type": "application/json",
-                    },
-                    body: JSON.stringify(values),
-
-                }
-
-            )
-
-
-            if (response.ok) {
-                let dataRequested = await response.json()
-                console.log(dataRequested)
-                window.localStorage.setItem("user_Token", dataRequested.access_token)
-                getUserData()
-            } else {
-                alert("User not created")
-            }
-
-            const res = await fetch(`${process.env.REACT_APP_API_REGISTER + "/" + "me" + "/" + "avatar"}`, {
-                method: "POST",
-                body: file
-            })
-            console.log("submitted 2")
-        } catch (e) {
-            return e
-        }
-    }
-
-    const getUserData = async () => {
-
-        try {
-            let response = await fetch(
-                "process.env.REACT_APP_API_REGISTER",
-                {
-                    method: "Get",
-
-                }
-            )
-            let userData = await response.json()
-            let userDataKeyList = Object.keys(userData)
-            userDataKeyList.forEach((key) =>
-                window.localStorage.setItem(key, userData[key])
-            )
-            setShowAlert(true)
-            setTimeout(() => {
-                props.history.push("transitionPage")
-            }, 2000)
-        } catch (e) {
-            console.log(e)
-            return e
-        }
-    }
-
-    return (
-        <div class="backg py-5">
-
-
-
-            <Container id="container" className="col-md-8">
-                <img src="https://camo.githubusercontent.com/40a80c83c5ce6ff286d0693ebe6b736cdcce8c94b22e3cd1b56ef5904733da8e/68747470733a2f2f6173736574732e737469636b706e672e636f6d2f696d616765732f3538306235376663643939393665323462633433633534332e706e67" width="300" height="300" alt="" />
-                <h3 id="title">Join to Whatsapp</h3>
-
-                <Formik
-                    initialValues={{
-
-                        email: "",
-                        username: "",
-
-                        password: "",
-
-                        avatar: "",
-                    }}
-                >
-                    <Form onSubmit={formik.handleSubmit}>
-                        <div className="form-group">
-                            <label htmlFor="name" id="title">
-
-                                Username:
-                            </label>
-                            <Field
-                                id="email"
-                                className="form-control"
-                                name="username"
-                                type="username"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.username}
-                            />
-                            {formik.touched.username && formik.errors.username ? (
-                                <div className="fw-bold text-danger">{formik.errors.username}</div>
-                            ) : null}
-                        </div>
-
-                        <div className="form-group">
-                            <label htmlFor="email" id="title">
-                                {" "}
-
-                                Email Address:
-                            </label>
-                            <Field
-                                id="email"
-                                className="form-control"
-                                name="email"
-                                type="email"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.email}
-                            />
-                            {formik.touched.email && formik.errors.email ? (
-                                <div className="fw-bold text-danger" >{formik.errors.email}</div>
-                            ) : null}
-
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="password" id="title">
-                                {" "}
-
-                                Password:
-                            </label>
-                            <Field
-                                id="password"
-                                className="form-control"
-                                name="password"
-                                type="password"
-                                onChange={formik.handleChange}
-                                onBlur={formik.handleBlur}
-                                value={formik.values.password}
-                            />
-                            {formik.touched.password && formik.errors.password ? (
-                                <div className="fw-bold text-danger">{formik.errors.password}</div>
-                            ) : null}
-
-                        </div>
-
-
-                        <div className="form-group">
-                            <label htmlFor="username" id="title">
-
-                                Picture:
-                            </label>
-
-                            <input id="exampleFormControlFile1"
-                                type="file"
-                                name="avatar"
-                                onChange={onFileChange} />
-                        </div>
-                        {showAlert && <Alert variant="success"> <Alert.Heading>Account Created Successfully</Alert.Heading></Alert>}
-                        {previewSource && (
-                            <img src={previewSource} alt="chosen" height="100px" width="100px" className="ml-auto" />
-                        )}
-                        <button
-                            id="btn"
-                            type="submit"
-                            className="btn btn-success my-2 btn-large w-100"
-
-                        >
-                            Register
-
-                        </button>
-
-                    </Form>
-                </Formik>
-            </Container>
-
-
-        </div >
-    )
-}
-export default Registration
-
-
-
+              <input
+                id="exampleFormControlFile1"
+                type="file"
+                name="avatar"
+                onChange={onFileChange}
+              />
+            </div>
+            {showAlert && (
+              <Alert variant="success">
+                {" "}
+                <Alert.Heading>Account Created Successfully</Alert.Heading>
+              </Alert>
+            )}
+            {/* {previewSource && (
+              <img
+                src={previewSource}
+                alt="chosen"
+                height="100px"
+                width="100px"
+                className="ml-auto"
+              />
+            )} */}
+            <button
+              id="btn"
+              type="submit"
+              className="btn btn-success my-2 btn-large w-100"
+            >
+              Register
+            </button>
+          </Form>
+        </Formik>
+      </Container>
+    </div>
+  );
+};
+export default Registration;
