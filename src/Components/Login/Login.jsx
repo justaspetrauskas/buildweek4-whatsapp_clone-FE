@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc"
 import "./login.css"
 import { Link } from "react-router-dom"
 import { useSelector,useDispatch } from 'react-redux'
-import {setUserData} from '../../redux/actions'
+import {setUserData} from '../../redux/actions/user'
 
 
 
