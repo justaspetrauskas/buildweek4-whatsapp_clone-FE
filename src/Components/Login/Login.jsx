@@ -4,8 +4,8 @@ import { FaFacebook } from "react-icons/fa"
 import { FcGoogle } from "react-icons/fc"
 import "./login.css"
 import { Link } from "react-router-dom"
-import { useSelector,useDispatch } from 'react-redux'
-import {setUserData} from '../../redux/actions/user'
+import { useSelector, useDispatch } from 'react-redux'
+import { setUserData } from '../../redux/actions/user'
 
 
 
@@ -25,7 +25,7 @@ const Login = (props) => {
             ...login,
             [key]: value,
         })
-        
+
         //console.log(selector)
     }
 
@@ -77,7 +77,7 @@ const Login = (props) => {
                 setTransitionPage(true)
                 let userDataKeyList = Object.keys(userData)
                 userDataKeyList.forEach(key => window.localStorage.setItem(key, userData[key]))
-                props.history.push('transitionPage')
+                props.history.push('home')
             } else {
                 setLoginValidation(true)
             }
