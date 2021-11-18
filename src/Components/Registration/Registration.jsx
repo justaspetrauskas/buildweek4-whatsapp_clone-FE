@@ -211,7 +211,7 @@ const Registration = (props) => {
                             className="btn btn-success my-2 btn-large w-100"
 
                         >
-                            <Link to="/" id="link"> Register    </Link>
+                            Register
 
                         </button>
 
