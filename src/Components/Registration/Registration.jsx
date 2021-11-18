@@ -39,7 +39,6 @@ const Registration = (props) => {
     },
     validate,
     onSubmit: (values) => {
-      console.log("inside Submit", values);
       createUser(values, " <<<<<< inside Signupform on submit");
     },
   });
@@ -79,8 +78,6 @@ const Registration = (props) => {
     } catch (err) {
       console.log(err);
     }
-
-    console.log("submitted 2");
   };
 
   const createUser = async (values) => {
