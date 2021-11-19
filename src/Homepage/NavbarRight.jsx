@@ -6,6 +6,7 @@ import User from "./User";
 
 const NavbarRight = ({ token }) => {
   const [users, setUsers] = useState([]);
+  const [subject, setChat] = useState();
 
   //   fetch all the users from DB
   const fetchUsers = async (accesstoken) => {
@@ -38,7 +39,7 @@ const NavbarRight = ({ token }) => {
         </Navbar.Brand>
 
         <Nav className="me-auto">
-          <Nav.Link href="#features">Sai Krishna</Nav.Link>
+          <Nav.Link href="#features"></Nav.Link>
         </Nav>
         <Navbar.Toggle aria-controls="offcanvasNavbar" />
         <Navbar.Offcanvas

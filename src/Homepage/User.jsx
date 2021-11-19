@@ -4,8 +4,11 @@ import { HiUserCircle } from "react-icons/hi";
 
 const User = ({ user }) => {
   return (
-    <div>
-      <Row className="user-row align-items-center justify-content-center">
+    <>
+      <Row
+        className="user-row align-items-center justify-content-center"
+        onClick={() => console.log("this will set the user and start the chat")}
+      >
         <Col className="col-4 justify-content-center">
           <div className="chat-user">
             <img src={user.avatar} alt="" />
@@ -16,7 +19,7 @@ const User = ({ user }) => {
           <p className="mb-1 text-muted">Recent chat</p>
         </Col>
       </Row>
-    </div>
+    </>
   );
 };
 
