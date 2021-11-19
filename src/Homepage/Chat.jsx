@@ -2,14 +2,13 @@ import React from "react";
 import { Row, Col } from "react-bootstrap";
 
 function Chat({ chat }) {
-  console.log(Chat);
   return (
     <>
       <Row className="user-row align-items-center justify-content-center">
         <Col className="col-4 justify-content-center">
           <div className="chat-user">
             {chat.members.map((member, index) => (
-              <img src={member.avatar} alt="" />
+              <img src={member.avatar} alt="" key={index} />
             ))}
           </div>
         </Col>
