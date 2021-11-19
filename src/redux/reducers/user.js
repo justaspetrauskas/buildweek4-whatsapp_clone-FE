@@ -23,6 +23,20 @@ export const userReducer = (state = initialState.user, action) => {
                 }
             }
 
+        case 'SET_BEARER_TOKEN':
+            return {
+                ...state,
+                bearer: action.payload
+            }
+
+        case 'SET_ONLINE_USERS':
+            return {
+                ...state,
+
+                onlineUsers: [...action.payload]
+
+            }
+
         default:
             {
                 return state

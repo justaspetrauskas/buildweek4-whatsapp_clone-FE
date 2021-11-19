@@ -2,6 +2,7 @@ import { Navbar, Container, Nav, InputGroup, FormControl} from 'react-bootstrap'
 import './Homepage.css'
 import {GoSmiley} from 'react-icons/go'
 import {BsFillMicFill} from 'react-icons/bs'
+import {GrSend} from 'react-icons/gr'
 
 const MessageBar = () => {
 
@@ -20,6 +21,7 @@ const MessageBar = () => {
   <Navbar.Toggle aria-controls="responsive-navbar-nav" />
   <Navbar.Collapse id="responsive-navbar-nav">
     <Nav className="me-auto">
+      <Nav.Link><GrSend/></Nav.Link>
       <Nav.Link href="#features" className='pb-3'><BsFillMicFill/></Nav.Link>
     </Nav>
   </Navbar.Collapse>

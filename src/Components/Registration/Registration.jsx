@@ -86,7 +86,7 @@ const Registration = (props) => {
             let response = await fetch(
                 "process.env.REACT_APP_API_REGISTER",
                 {
-                    method: "Get",
+                    method: "GET",
 
                 }
             )

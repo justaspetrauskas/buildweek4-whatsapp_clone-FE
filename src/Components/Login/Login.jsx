@@ -5,7 +5,7 @@ import { FcGoogle } from "react-icons/fc"
 import "./login.css"
 import { Link } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
-import { setUserData } from '../../redux/actions/user'
+import { setUserData, setBearerToken } from '../../redux/actions/user'
 
 
 
@@ -45,6 +45,9 @@ const Login = (props) => {
                 console.log(userToken, "user token")
                 window.localStorage.setItem("user_Token", userToken.accessToken)
                 setToken(window.localStorage.getItem("user_Token", userToken))
+                let bearer = window.localStorage.getItem("user_Token").replace('Bearer','')
+                dispatch(setBearerToken(bearer))
+                console.log('hey',selector.bearer)
                 getUserData()
             } else {
                 setLoginValidation(true)
@@ -77,7 +80,7 @@ const Login = (props) => {
                 setTransitionPage(true)
                 let userDataKeyList = Object.keys(userData)
                 userDataKeyList.forEach(key => window.localStorage.setItem(key, userData[key]))
-                props.history.push('home')
+                 props.history.push('home')
             } else {
                 setLoginValidation(true)
             }

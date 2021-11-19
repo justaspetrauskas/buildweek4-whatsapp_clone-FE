@@ -10,6 +10,8 @@ export const initialState = {
     user: {
         isLogged: false,
         userData: {},
+        bearer: '',
+        onlineUsers: []
     },
     chat: {
         allChatsRooms: [],
