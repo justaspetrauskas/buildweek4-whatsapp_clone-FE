@@ -1,37 +1,67 @@
 .nav-left-container {
-	margin-left: 0px !important;
-	margin-right: 0px !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
 }
 
 .nav-right-container {
-	margin-left: 0px !important;
-	margin-right: 0px !important;
+  margin-left: 0px !important;
+  margin-right: 0px !important;
 }
-
+.left-side-bar {
+  border-right: 1px solid white;
+  background-color: rgba(0, 0, 0, 1);
+  height: 100vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.chat-header {
+  position: absolute;
+  z-index: 999;
+  width: 101%;
+  top: 0;
+  right: 0;
+  left: 0;
+}
+.main-window {
+  position: relative;
+  overflow: hidden;
+}
 .chat-user {
-	height: 3em;
-	width: 4.3em;
+  margin-left: 1.5rem;
+  margin-right: 0.2rem;
+  height: 40px;
+  width: 40px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.chat-user img {
+  width: 100%;
+  height: auto;
+  background-size: cover;
 }
 
 .back-image {
-
-	background-image: url("https://res.cloudinary.com/dsu915vad/image/upload/v1636992648/DelIt/Watsapp/In_celebration_of_WhatsApps_dark_mode_Wallpaper_gelap_rzbvyz.jpg");
-
+  background-image: url("https://res.cloudinary.com/dsu915vad/image/upload/v1636992648/DelIt/Watsapp/In_celebration_of_WhatsApps_dark_mode_Wallpaper_gelap_rzbvyz.jpg");
+  background-size: contain;
+}
+.user-row {
+  display: flex;
+  cursor: pointer;
 }
 
 .user-row:hover {
-	background-color: rgb(46, 44, 44);
+  background-color: rgba(46, 44, 44, 0.4);
 }
 
 .message-bar {
-	bottom: 0rem;
-	width: 100%;
-	position: fixed;
+  bottom: 0rem;
+  width: 100%;
+  position: fixed;
 }
 
 @media screen and (max-width: 940px) {
-	.left-image {
-		background-color: black;
-		position: fixed;
-	}
+  .left-image {
+    background-color: black;
+    position: fixed;
+  }
 }

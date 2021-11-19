@@ -1,38 +1,55 @@
-import {InputGroup, FormControl, Row, Col} from 'react-bootstrap'
-import {HiUserCircle} from 'react-icons/hi'
-import './Homepage.css'
-import { useSelector} from 'react-redux'
+import React, { useEffect, useState } from "react";
+import { InputGroup, FormControl } from "react-bootstrap";
+import Chat from "./Chat";
+import "./Homepage.css";
 
-const UsersContainer = () => {
+const UsersContainer = ({ token }) => {
+  const [chats, setChats] = useState([]);
 
-    const onlineUsers = useSelector(state => state.user.onlineUsers)
+  //   fetch all the users from DB
+  const fetchChats = async (accesstoken) => {
+    console.log(process.env.REACT_APP_API_BE);
+    try {
+      let chats = await fetch(`${process.env.REACT_APP_API_BE}/chats`, {
+        method: "GET",
+        headers: {
+          Authorization: accesstoken,
+        },
+      });
+      if (chats.ok) {
+        let data = await chats.json();
+        setChats(data);
+        console.log(data);
+      }
+    } catch (err) {
+      console.log(err);
+    }
+  };
 
-    //let userArray = ['Hasham', 'Justas', 'Sai Krishna', 'Tarun Tej', 'Pradeep', 'Rakesh Reddy', 'Hemanth', 'Salman' ]
-
-return(
+  useEffect(() => {
+    fetchChats(token);
+  }, [token]);
+  return (
     <>
-    {console.log('hey',onlineUsers)}
-    <InputGroup className="my-3 mx-4" style={{width:'88%'}}>
-    <FormControl
-      placeholder="Search or start new chat"
-      aria-label="Username"
-      aria-describedby="basic-addon1"
-      style={{borderRadius:'10vh', height: '4vh', backgroundColor:'#323739'}}
-    />
-  </InputGroup>
-{onlineUsers.map(user => 
-    <Row className='user-row'>
-        <Col className='col-2' style={{paddingLeft:'2rem'}}>
-            <HiUserCircle className='chat-user'/>
-        </Col>
-        <Col className='col-10' style={{paddingLeft:'4rem'}}>
-        <p className='mb-0 mt-1 text-white'>{user.username}</p>
-        <p className='mb-1 text-muted'>Recent chat</p>
-        </Col>
-    </Row>
-)}
+      <InputGroup className="my-3 mx-4" style={{ width: "88%" }}>
+        <FormControl
+          placeholder="Search or start new chat"
+          aria-label="Username"
+          aria-describedby="basic-addon1"
+          style={{
+            borderRadius: "10vh",
+            height: "4vh",
+            backgroundColor: "#323739",
+          }}
+        />
+      </InputGroup>
+      <div>
+        {chats.map((chat, index) => (
+          <Chat chat={chat} key={index} />
+        ))}
+      </div>
     </>
-)
-}
+  );
+};
 
-export default UsersContainer
+export default UsersContainer;
