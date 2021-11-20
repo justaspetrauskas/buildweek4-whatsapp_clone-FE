@@ -6,21 +6,25 @@ export const chatReducer = (state = initialState.chat, action) => {
     case "SET_ACTIVE_CHAT":
       return {
         ...state,
-        chatId: payload,
+        activeChat: payload,
       };
 
     case "SET_HISTORY":
       return {
         ...state,
-        history: [...state.history, payload],
+        history: payload,
       };
-
-    case "NEW_MESSAGE":
+    case "SET_CHAT_ID":
       return {
         ...state,
-        userData: {
-          ...action.payload,
-        },
+        chatId: payload,
+      };
+
+    case "SET_NEW_MESSAGE":
+      return {
+        ...state,
+        newMessage: payload,
+        history: [...state.history, payload],
       };
 
     default: {

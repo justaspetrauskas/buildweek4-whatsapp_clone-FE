@@ -14,7 +14,9 @@ function Chat({ chat }) {
         </Col>
         <Col className="col-8">
           {chat.members.map((member, index) => (
-            <p className="mb-0 mt-1 text-white">{member.username}</p>
+            <p className="mb-0 mt-1 text-white" key={index}>
+              {member.username}
+            </p>
           ))}
 
           <p className="mb-1 text-muted">{chat.history[0].text}</p>

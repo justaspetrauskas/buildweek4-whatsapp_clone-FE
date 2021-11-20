@@ -1,8 +1,11 @@
-import { applyMiddleware, createStore, combineReducers } from "redux";
+import { applyMiddleware, createStore, combineReducers, compose } from "redux";
 import thunk from "redux-thunk";
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import reducerLib from "../redux/reducers/index.js";
+import setInnitialSocketReducer from "./reducers/socket";
+
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 export const initialState = {
   user: {
@@ -10,15 +13,20 @@ export const initialState = {
     userData: {},
   },
   chat: {
-    active: {},
-    history: {},
+    activeChat: {},
+    chatId: "",
+    history: [],
+    newMessage: {},
   },
-  socket: {},
+  socketInfo: {
+    socket: {},
+  },
 };
 
 export const groupedReducers = combineReducers({
   user: reducerLib.userReducer,
   chat: reducerLib.chatReducer,
+  socketInfo: setInnitialSocketReducer,
 });
 
 const configPersistance = {
@@ -31,12 +39,11 @@ export const persistedReducer = persistReducer(
   groupedReducers
 );
 
-const useThunk = window.__REDUX_DEVTOOLS_EXTENSION__
-  ? window.__REDUX_DEVTOOLS_EXTENSION__ &&
-    window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__(applyMiddleware(thunk))
-  : applyMiddleware(thunk);
-
-const configureStore = createStore(persistedReducer, initialState, useThunk);
+const configureStore = createStore(
+  persistedReducer,
+  initialState,
+  composeEnhancers(applyMiddleware(thunk))
+);
 
 export const persistor = persistStore(configureStore);
 export default configureStore;
